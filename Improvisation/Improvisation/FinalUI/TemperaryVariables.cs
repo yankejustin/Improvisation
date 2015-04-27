@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Improvisation.FinalUI
 {
-    public static class TemperaryVariables
+    public static class TemporaryVariables
     {
         public static volatile NGramGraphMarkovChain<Chord> Graph;
     }

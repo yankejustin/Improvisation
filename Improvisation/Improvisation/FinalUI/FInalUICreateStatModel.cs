@@ -91,7 +91,7 @@ namespace Improvisation.FinalUI
 
         private void Save(NGramGraphMarkovChain<Chord> a)
         {
-            TemperaryVariables.Graph = a;
+            TemporaryVariables.Graph = a;
             this.Dispose();
 
             return;
