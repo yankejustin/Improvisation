@@ -64,7 +64,7 @@ namespace Improvisation.FinalUI
 
                 try
                 {
-                    this.okayMidiFilesListView.Items.AddRange(this.files.Select(x => new ListViewItem(Path.GetFileName(x))).ToArray());
+                    this.okayMidiFilesListView.Items.AddRange(this.okayFiles.Select(x => new ListViewItem(Path.GetFileName(x))).ToArray());
                 }
                 catch (Exception ex)
                 {
