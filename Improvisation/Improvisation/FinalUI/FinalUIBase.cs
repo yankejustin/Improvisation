@@ -1,20 +1,13 @@
 ﻿using Improvisation.FinalUI;
 using Improvisation.Library;
-using Improvisation.Library.Distance;
 using Improvisation.Library.GraphOperations;
 using Improvisation.Library.Music;
 using Improvisation.Library.Search;
 using Improvisation.Library.SmartWalkers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Improvisation
