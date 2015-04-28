@@ -44,20 +44,20 @@ namespace Improvisation.FinalUI
 
                 this.midiFileListView.Items.AddRange(this.files.Select(x => new ListViewItem(FinalUIHelperMethods.FileFriendlyString(x))).ToArray());
             }
+
             this.trainingButton.Enabled = true;
             this.errotextBox.ReadOnly = true;
         }
 
         private void loadOkayButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog()
+            {
+                Filter = "Midi Files (*.mid)|*.mid",
+                Multiselect = true
+            };
 
-            openFileDialog1.Filter = "Midi Files (*.mid)|*.mid";
-            openFileDialog1.Multiselect = true;
-
-            DialogResult result = openFileDialog1.ShowDialog();
-
-            if (result == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 this.okayFiles = openFileDialog1.FileNames;
 
@@ -76,9 +76,10 @@ namespace Improvisation.FinalUI
 
         private void trainingButton_Click(object sender, EventArgs e)
         {
-            PianoNoteRetriever retriever = new PianoNoteRetriever();
+            var retriever = new PianoNoteRetriever();
             var midiEvents = new InstrumentMidiEventProducer(this.files.Select(x => new Sequence(x)));
-            var midi = midiEvents.GetOrderedMessages(GeneralMidiInstrument.AcousticGrandPiano);
+            IReadOnlyList<MidiEvent> midi = midiEvents.GetOrderedMessages(GeneralMidiInstrument.AcousticGrandPiano);
+
             Chord.AllowForComplexSimplification = this.checkBox.Checked;
             var accords = Chord.RetrieveChords(midi, retriever);
 
@@ -95,7 +96,7 @@ namespace Improvisation.FinalUI
                 DiscreteDataRetriever data1 = new DiscreteDataRetriever(accords1.ToList());
 
                 this.nnByChord = new DiscreteNeuralNetworkByChord(data.Good, data1.Good, data.Bad.Union(data1.Bad).Take(data.Bad.Count).ToList(),
-                    new AForge.Neuro.BipolarSigmoidFunction());
+                                                                  new AForge.Neuro.BipolarSigmoidFunction());
             }
             else
             {
@@ -106,6 +107,7 @@ namespace Improvisation.FinalUI
             {
                 item.Enabled = false;
             }
+
             threadTrain = new Thread(Start);
             threadTrain.Start();
         }
@@ -117,9 +119,11 @@ namespace Improvisation.FinalUI
             {
                 this.nnByChord.Train();
             }
+
             double error = this.nnByChord.Train();
             this.progressBar1.BeginInvoke((Action)(() => this.progressBar1.Maximum = (int)(error * 10D * 5D)));
             this.progressBar1.BeginInvoke((Action)(() => this.progressBar1.Minimum = (int)((double)this.numericUpDown1.Value * 10D)));
+
             do
             {
                 error = this.nnByChord.Train();
@@ -133,11 +137,14 @@ namespace Improvisation.FinalUI
         }
         private void SaveAndExit()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Neural Net files (*.nn)|*.nn";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.CreatePrompt = true;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog()
+            {
+                Filter = "Neural Net files (*.nn)|*.nn",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+                CreatePrompt = true
+            };
+
             saveFileDialog1.ShowDialog();
 
             if (this.nnByChord.Save(saveFileDialog1.FileName))

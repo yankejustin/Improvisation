@@ -17,6 +17,7 @@ namespace Improvisation.FinalUI
     {
         private string[] files;
         private bool homogeneous { get { return this.leftRangeNumericUpDown.Value == this.rightRangeNumericUpDown.Value; } }
+
         public FInalUICreateStatModel()
         {
             InitializeComponent();
@@ -26,14 +27,13 @@ namespace Improvisation.FinalUI
 
         private void loadMidiFilesButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog()
+            {
+                Filter = "Midi Files (*.mid)|*.mid",
+                Multiselect = true
+            };
 
-            openFileDialog1.Filter = "Midi Files (*.mid)|*.mid";
-            openFileDialog1.Multiselect = true;
-
-            DialogResult result = openFileDialog1.ShowDialog();
-
-            if (result == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 this.files = openFileDialog1.FileNames;
 
@@ -46,9 +46,10 @@ namespace Improvisation.FinalUI
         {
             try
             {
-                PianoNoteRetriever retriever = new PianoNoteRetriever();
+                var retriever = new PianoNoteRetriever();
                 var midiEvents = new InstrumentMidiEventProducer(this.files.Select(x => new Sequence(x)));
-                var midi = midiEvents.GetOrderedMessages(GeneralMidiInstrument.AcousticGrandPiano);
+                IReadOnlyList<MidiEvent> midi = midiEvents.GetOrderedMessages(GeneralMidiInstrument.AcousticGrandPiano);
+
                 Chord.AllowForComplexSimplification = this.checkBox1.Checked;
                 var accords = Chord.RetrieveChords(midi, retriever);
 
@@ -61,6 +62,7 @@ namespace Improvisation.FinalUI
                 {
                     grams = HeterogenousNGrams<Chord>.BuildNGrams((int)this.leftRangeNumericUpDown.Value, (int)this.rightRangeNumericUpDown.Value, accords);
                 }
+
                 NGramGraphMarkovChain<Chord> graph = new NGramGraphMarkovChain<Chord>(grams);
                 this.Save(graph);
             }
@@ -88,23 +90,10 @@ namespace Improvisation.FinalUI
             }
         }
 
-
         private void Save(NGramGraphMarkovChain<Chord> a)
         {
-            TemperaryVariables.Graph = a;
+            TemporaryVariables.Graph = a;
             this.Dispose();
-
-            return;
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "model files (*.smf)|*.smf";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.CreatePrompt = true;
-            saveFileDialog1.ShowDialog();
-
-            //a.Save(saveFileDialog1.FileName);
-
-
         }
     }
 }

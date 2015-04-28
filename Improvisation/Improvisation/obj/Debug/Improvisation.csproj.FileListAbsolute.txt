@@ -92,7 +92,6 @@ C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\bin\De
 C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\bin\Debug\QuickGraph.Serialization.xml
 C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\bin\Debug\YAXLib.pdb
 C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\bin\Debug\YAXLib.xml
-C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\obj\Debug\Improvisation.csprojResolveAssemblyReference.cache
 C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\obj\Debug\Templates\template.baml
 C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\obj\Debug\Improvisation_Content.g.cs
 C:\Users\Steve\Documents\GitHub\Improvisation\Improvisation\Improvisation\obj\Debug\Improvisation_MarkupCompile.cache
