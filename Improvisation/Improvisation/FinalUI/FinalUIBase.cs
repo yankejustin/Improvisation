@@ -48,7 +48,7 @@ namespace Improvisation
                 try
                 {
                     this.neuralNetwork = DiscreteNeuralNetworkByChord.Load(file);
-                    this.loadNeuralNetworkTextbox.Text = FinalUIHelperMethods.FileFriendlyString(openFileDialog1.FileName);
+                    this.loadNeuralNetworkTextbox.Text = Path.GetFileName(openFileDialog1.FileName);
                 }
 
                 catch (Exception ex)

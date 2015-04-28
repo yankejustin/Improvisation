@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Improvisation.FinalUI
 {
@@ -37,7 +38,7 @@ namespace Improvisation.FinalUI
             {
                 this.files = openFileDialog1.FileNames;
 
-                this.midiFileListView.Items.AddRange(this.files.Select(x => new ListViewItem(FinalUIHelperMethods.FileFriendlyString(x))).ToArray());
+                this.midiFileListView.Items.AddRange(this.files.Select(x => new ListViewItem(Path.GetFileName(x))).ToArray());
                 this.beginGenerationButton.Enabled = true;
             }
         }
