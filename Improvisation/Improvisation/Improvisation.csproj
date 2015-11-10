@@ -142,7 +142,6 @@
     <Compile Include="FinalUI\FInalUICreateStatModel.Designer.cs">
       <DependentUpon>FInalUICreateStatModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="FinalUI\FinalUIHelperMethods.cs" />
     <Compile Include="FinalUI\TemperaryVariables.cs" />
     <Compile Include="Library\AForgeExtensions\ActivationFunctions.cs" />
     <Compile Include="Library\AForgeExtensions\GammaFunction.cs" />
