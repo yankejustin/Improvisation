@@ -213,7 +213,10 @@ namespace Improvisation.Library
                 builder.Append(item.ToString());
                 builder.Append(" ");
             }
-            builder.Remove(builder.Length - 1, 1);
+            if (builder.Length > 0)
+            {
+                builder.Remove(builder.Length - 1, 1);
+            }
             return builder.ToString();
         }
         public bool Equals(NGram<T> other)

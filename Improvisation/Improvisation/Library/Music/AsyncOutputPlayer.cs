@@ -14,7 +14,6 @@ namespace Improvisation.Library.Music
         public bool Playing { get; private set; }
 
         private OutputDevice outDevice;
-        private Thread thread;
         private int wait = 0;
         public AsyncOutputPlayer()
         {
@@ -23,7 +22,7 @@ namespace Improvisation.Library.Music
 
         public async void Play(IEnumerable<NGram<Chord>> enumerable)
         {
-            Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(() =>
                 {
                     enumerable.NullCheck();
 

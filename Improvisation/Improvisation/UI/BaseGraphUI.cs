@@ -6,19 +6,15 @@ using Improvisation.Library;
 using QuickGraph;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
 namespace Improvisation
 {
-    public abstract partial class BaseGraphUI<T>
-        : Form
+    public abstract partial class BaseGraphUI<T> : Form
         where T : IEquatable<T>
     {
 

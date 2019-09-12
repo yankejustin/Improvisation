@@ -1,15 +1,10 @@
 ﻿using Sanford.Multimedia;
 using Sanford.Multimedia.Midi;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Improvisation.Library.Music
 {
-    public class SimplisticPianoNote
-        : IEquatable<SimplisticPianoNote>
+    public class SimplisticPianoNote : IEquatable<SimplisticPianoNote>
     {
         public static readonly PianoNoteRetriever PianoNoteRetriever;
 
@@ -46,6 +41,19 @@ namespace Improvisation.Library.Music
         public static bool operator !=(SimplisticPianoNote one, SimplisticPianoNote second)
         {
             return !one.Equals(second);
+        }
+
+        public override bool Equals(object _obj)
+        {
+            var obj = (_obj as SimplisticPianoNote);
+            if (obj != null)
+            {
+                return this.Equals(obj);
+            }
+            else
+            {
+                return base.Equals(_obj);
+            }
         }
 
         public bool Equals(SimplisticPianoNote other)

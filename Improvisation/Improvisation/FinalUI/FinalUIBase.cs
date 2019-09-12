@@ -76,13 +76,14 @@ namespace Improvisation
             this.createStatModel_Click(null, null);
         }
 
-        private async void startMusicGeneration_Click(object sender, EventArgs e)
+        private void startMusicGeneration_Click(object sender, EventArgs e)
         {
             this.model = TemporaryVariables.Graph;
 
             if (this.model == null || this.neuralNetwork == null)
             {
                 MessageBox.Show("Load neccessary files");
+                return;
             }
 
             INGramWeightAssigner<Chord> assi = null;
@@ -132,7 +133,7 @@ namespace Improvisation
             this.sizeVsWeightAssigner.Value = 100 - this.countDistAssigner.Value;
         }
 
-        private async void songListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void songListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var current = (GeneticIndividualUIElement<NGram<Chord>[]>)this.songListBox.SelectedItem;
 
@@ -188,7 +189,7 @@ namespace Improvisation
                 }));
         }
 
-        private async void GenerateThemeTask(NGram<Chord>[] path)
+        private void GenerateThemeTask(NGram<Chord>[] path)
         {
             if (this.asyncPlayer.Playing)
             {
@@ -198,7 +199,7 @@ namespace Improvisation
             this.asyncPlayer.Play(path);
         }
 
-        private async void ShowMelodyDifference(NGram<Chord>[] nGram)
+        private void ShowMelodyDifference(NGram<Chord>[] nGram)
         {
             NGramGraphMarkovChain<Chord> melodyGraph = new NGramGraphMarkovChain<Chord>(HomogenousNGrams<Chord>.DirectBuiltUnsafe(nGram, 1));
             NGramSemanticGraphDistance<Chord> a = new Library.GraphOperations.NGramSemanticGraphDistance<Chord>();

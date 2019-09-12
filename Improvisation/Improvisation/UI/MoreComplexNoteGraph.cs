@@ -26,7 +26,7 @@ namespace Improvisation
     {
         private AsyncOutputPlayer asyncPlayer = new AsyncOutputPlayer();
 
-        private async void GenerateThemeTask()
+        private void GenerateThemeTask()
         {
             if (this.asyncPlayer.Playing)
             {
@@ -45,7 +45,7 @@ namespace Improvisation
             get { return true; }
         }
 
-        public override void FormLoad(object sender, EventArgs e)
+        public override async void FormLoad(object sender, EventArgs e)
         {
             PianoNoteRetriever retriever = new PianoNoteRetriever();
 
@@ -53,11 +53,6 @@ namespace Improvisation
                 Directory.EnumerateFiles(@"C:\Users\armen_000\Documents\Visual Studio 2013\Projects\Improvisation\Improvisation\bin\Debug\MusicSeperated\RayCharles").Select(x => new Sequence(x)));
             var midi = midiEvents.GetOrderedMessages(GeneralMidiInstrument.AcousticGrandPiano);
             var accords = Chord.RetrieveChords(midi, retriever);
-
-            //    var mahboyeminem = Chord.RetrieveChords(
-            //      new InstrumentMidiEventProducer(Directory.EnumerateFiles("MusicSeperated\\Eminem").Select(x => new Sequence(x))).GetOrderedMessages(GeneralMidiInstrument.AcousticGrandPiano),
-            //    retriever);
-
 
             var grams = HeterogenousNGrams<Chord>.BuildNGrams(3, 7, accords.ToList());
             this.MarkovGraph = new NGramGraphMarkovChain<Chord>(grams);
@@ -69,7 +64,7 @@ namespace Improvisation
             this.GraphArea.GenerateGraph(true);
             this.GraphArea.SetVerticesDrag(true, true);
 
-            this.UpdateThemeListBox();
+            await this.UpdateThemeListBox();
         }
 
         public override void NGramListBoxSelectedIndexChanged(object sender, EventArgs e)

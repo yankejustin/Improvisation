@@ -26,7 +26,7 @@ namespace Improvisation
     public class NoteGraph
         : BaseGraphUI<SimplisticPianoNote>
     {
-        private async void GenerateThemeTask()
+        private void GenerateThemeTask()
         {
             NGramRandomGraphMarkovChainWalker<SimplisticPianoNote> note = new NGramRandomGraphMarkovChainWalker<SimplisticPianoNote>(this.MarkovGraph, this.MarkovGraph.First().Key, new Random());
             var path = note.WalkMarkovChain(100, NGramRandomGraphMarkovChainWalker<SimplisticPianoNote>.NextStateType.Homogenous);
